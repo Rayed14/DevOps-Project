@@ -24,7 +24,7 @@ jobs:
           
       - name: Build and Push Frontend Image
         run: |
-          docker build -t rayed14/frontends:${{ github.sha }} ./frontend
+          docker build -t rayed14/frontend:${{ github.sha }} ./frontend
           docker push rayed14/frontend:${{ github.sha }}
 
       - name: Update Docker Compose File
