@@ -15,7 +15,7 @@ services:
   doctors:
     build:
       context: ./doctors
-    image: rayed14/doctors:v1.0
+    image: rayed14/doctors:1b6d1d24c594c3bccfc4e37fc39f9c206346d7ce
     ports:
       - "9090:9090"
     networks:
