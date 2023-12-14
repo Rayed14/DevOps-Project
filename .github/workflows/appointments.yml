@@ -1,0 +1,34 @@
+name: CI/CD - Appointments Service
+
+on:
+  push:
+    paths:
+      - 'appointments/**'  # Path-based filtering for appointments service changes
+  pull_request:
+    paths:
+      - 'appointments/**'  # Path-based filtering for appointments service changes
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_USERNAME }}" | docker login -u ${{ secrets.DOCKER_PASSWORD }} --password-stdin
+
+      - name: Build and Push Appointments Image
+        run: |
+          docker build -t rayed14/appointments:${{ github.sha }} ./appointments
+          docker push rayed14/appointments:${{ github.sha }}
+
+      - name: Update Docker Compose File
+        run: |
+          sed -i "s#rayed14/appointments:.*#rayed14/appointments:${{ github.sha }}#" docker-compose.yml
+          git config --global user.email "rayedsaeed26@gmail.com"
+          git config --global user.name "Rayed14"
+          git add docker-compose.yml
+          git commit -m "Update Appointments Service image to ${GITHUB_SHA}"
+          git push origin main
