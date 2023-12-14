@@ -7,7 +7,7 @@ doctors = [
 ]
 
 @app.route('/hello')
-def hello():
+def hello(): 
   greeting = "Hello world!"
   return greeting
 

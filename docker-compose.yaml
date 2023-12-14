@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  appointments:
+    build:
+      context: ./appointments
+    image: rayed14/appointments:v1.0
+    ports:
+      - "7070:7070"
+    environment:
+      - DOCTORS_SERVICE_URL=doctors:9090
+    networks:
+      - doctor-appointment
+
+  doctors:
+    build:
+      context: ./doctors
+    image: rayed14/doctors:v1.0
+    ports:
+      - "9090:9090"
+    networks:
+      - doctor-appointment
+
+  frontend:
+    build:
+      context: ./frontend
+    image: rayed14/frontend:v1.0
+    ports:
+      - "3000:3000"
+    environment:
+      - DOCTORS_SERVICE_URL=doctors:9090
+      - APPOINTMENTS_SERVICE_URL=appointments:7070
+    networks:
+      - doctor-appointment
+    depends_on:
+      - appointments
+      - doctors
+
+networks:
+  doctor-appointment:
+    driver: bridge
