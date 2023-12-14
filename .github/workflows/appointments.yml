@@ -32,6 +32,6 @@ jobs:
           sed -i "s#rayed14/appointments:.*#rayed14/appointments:${{ github.sha }}#" docker-compose.yml
           git config --global user.email "rayedsaeed26@gmail.com"
           git config --global user.name "Rayed14"
-          git add docker-compose.yml
+          git add docker-compose.yaml
           git commit -m "Update Appointments Service image to ${GITHUB_SHA}"
           git push origin main
