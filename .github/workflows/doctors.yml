@@ -3,10 +3,10 @@ name: CI/CD - Doctors Service
 on:
   push:
     paths:
-      - 'doctors/**'  # Path-based filtering for appointments service changes
+      - 'doctors/**'  # Path-based filtering for doctors service changes
   pull_request:
     paths:
-      - 'doctors/**'  # Path-based filtering for appointments service changes
+      - 'doctors/**'  # Path-based filtering for doctors service changes
 
 jobs:
   build-and-push:
@@ -22,7 +22,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           
-      - name: Build and Push Appointments Image
+      - name: Build and Push Doctors Image
         run: |
           docker build -t rayed14/doctors:${{ github.sha }} ./doctors
           docker push rayed14/doctors:${{ github.sha }}
