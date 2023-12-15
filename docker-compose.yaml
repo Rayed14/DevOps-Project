@@ -4,7 +4,7 @@ services:
   appointments:
     build:
       context: ./appointments
-    image: rayed14/appointments:dd38f6c0df05cdd8c8ec68b99ab19b913d343ae4
+    image: rayed14/appointments:cf7915f280133780f33195e65e4d4c7e7b69bb5b
     ports:
       - "7070:7070"
     environment:
