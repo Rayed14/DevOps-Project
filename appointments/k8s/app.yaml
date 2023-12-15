@@ -35,7 +35,7 @@ spec:
           command: ["sh", "-c", "echo 'My name is Rayed Muhammad Saeed' && sleep 5"]
       containers:
         - name: appointments
-          image: rayed14/appointments:136522209f2341dbf8d942f765b4eb4ec045625c 
+          image: rayed14/appointments:dd38f6c0df05cdd8c8ec68b99ab19b913d343ae4 
           env:
             - name: NAME
               valueFrom:

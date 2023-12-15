@@ -4,7 +4,7 @@ metadata:
   name: doctors-config
 data:
   details.txt: |
-    My name is Rayed Muhammad Saeed and i am studying Devops.
+    My name is Rayed Muhammad Saeed and I am studying DevOps.
 
 ---
 apiVersion: v1
@@ -26,6 +26,7 @@ kind: Deployment
 metadata:
   name: doctors-deployment
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: doctors
@@ -42,10 +43,18 @@ spec:
         - name: doctors
           image: rayed14/doctors:1b6d1d24c594c3bccfc4e37fc39f9c206346d7ce 
           env:
-        - name: APPOINTMENTS_API_HOST
-          value: appointments-service
-        - name: APPOINTMENTS_API_PORT
-          value: "80"
+            - name: APPOINTMENTS_API_HOST
+              value: "appointments-service"
+            - name: APPOINTMENTS_API_PORT
+              value: "80" # Specify the port here if needed
+            - name: DATABASE_HOST
+              value: "mysql-service"
+            - name: DATABASE_PORT
+              value: "3306"
+            - name: DATABASE_USER
+              value: "rayed"
+            - name: DATABASE_PASSWORD
+              value: "Ronaldo_no1"
           resources:
             requests:
               memory: "64Mi"

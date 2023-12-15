@@ -33,7 +33,7 @@ spec:
       spec:
       containers:
       - name: frontend
-        image: rayed14/frontend:dd6f426ad8d040a2c6842d3da4a4d18e98b5ac12
+        image: rayed14/frontend:2ddd23e4d437619ea3ae53167ba8659f9b433727
         env:
         - name: APPOINTMENTS_API_HOST
           value: appointments-service
