@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      initContainers:
+        - name: init
+          image: ubuntu:latest
+          command: ["sh", "-c", "echo 'My name is Rayed Muhammad Saeed' && sleep 5"]
+      spec:
+      containers:
+      - name: frontend
+        image: rayed14/frontend:dd6f426ad8d040a2c6842d3da4a4d18e98b5ac12
+        env:
+        - name: APPOINTMENTS_API_HOST
+          value: appointments-service
+        - name: APPOINTMENTS_API_PORT
+          value: "80"
+        - name: DOCTORS_API_HOST
+          value: doctors-service
+        - name: DOCTORS_API_PORT
+          value: "80"
+        - name: DOCTORS_SERVICE_URL
+          value: doctors-service:80
+        - name: APPOINTMENTS_SERVICE_URL
+          value: appointments-service:80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 3
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+
+      imagePullSecrets:
+        - name: regcred

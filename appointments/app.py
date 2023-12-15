@@ -23,5 +23,11 @@ def getAppointment(id):
   id = int(id) - 1
   return jsonify(appointments[id])
 
+# Health check endpoint
+@app.route('/health')
+def health_check():
+    # Return a simple health check response
+    return jsonify({'status': 'ok'})
+
 if __name__ == "__main__":
-  app.run(host="0.0.0.0",port=7070)
+    app.run(host="0.0.0.0", port=7070)
