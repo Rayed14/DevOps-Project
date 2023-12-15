@@ -24,7 +24,7 @@ services:
   frontend:
     build:
       context: ./frontend
-    image: rayed14/frontend:4d7ed75a82cd8dac25e154413e99eae3391e35a5
+    image: rayed14/frontend:2ddd23e4d437619ea3ae53167ba8659f9b433727
     ports:
       - "3000:3000"
     environment:
